@@ -164,14 +164,14 @@ set :unicorn_workers, 4
 
 If you want to change default templates, you can generate them using `rails generator`
 
-    rails g capistrano:nginx_unicorn:config
+    rails g capistrano3:nginx_unicorn:config
 
 This will copy default templates to `config/deploy/templates` directory,
 so you can customize them as you like, and capistrano tasks will use this templates instead of default.
 
 You can also provide path, where to generate templates:
 
-    rails g capistrano:nginx_unicorn:config config/templates
+    rails g capistrano3:nginx_unicorn:config config/templates
 
 # TODO:
 
