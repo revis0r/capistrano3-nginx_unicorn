@@ -5,6 +5,7 @@ namespace :load do
     set :templates_path, "config/deploy/templates"
 
     set :nginx_server_name, -> { "www.example.com" }
+    set :nginx_config_path, -> { "/etc/nginx" }
     set :nginx_use_ssl, false
     set :nginx_ssl_certificate, -> { "#{fetch(:nginx_server_name)}.crt" }
     set :nginx_ssl_certificate_key, -> { "#{fetch(:nginx_server_name)}.key" }
@@ -25,8 +26,8 @@ namespace :nginx do
   task :setup do
     on roles(:web) do
       template("nginx_conf.erb", "/tmp/#{fetch(:application)}.conf")
-      execute "sudo mv /tmp/#{fetch(:application)}.conf /etc/nginx/sites-available/#{fetch(:application)}.conf"
-      execute "sudo ln -fs /etc/nginx/sites-available/#{fetch(:application)}.conf /etc/nginx/sites-enabled/#{fetch(:application)}.conf"
+      execute "sudo mv /tmp/#{fetch(:application)}.conf #{fetch(:nginx_config_path)}/sites-available/#{fetch(:application)}.conf"
+      execute "sudo ln -fs /etc/nginx/sites-available/#{fetch(:application)}.conf #{fetch(:nginx_config_path)}/sites-enabled/#{fetch(:application)}.conf"
 
       if fetch(:nginx_use_ssl)
         if nginx_upload_local_certificate
