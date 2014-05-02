@@ -27,7 +27,7 @@ namespace :nginx do
     on roles(:web) do
       template("nginx_conf.erb", "/tmp/#{fetch(:application)}.conf")
       execute "sudo mv /tmp/#{fetch(:application)}.conf #{fetch(:nginx_config_path)}/sites-available/#{fetch(:application)}.conf"
-      execute "sudo ln -fs /etc/nginx/sites-available/#{fetch(:application)}.conf #{fetch(:nginx_config_path)}/sites-enabled/#{fetch(:application)}.conf"
+      execute "sudo ln -fs #{fetch(:nginx_config_path)}/sites-available/#{fetch(:application)}.conf #{fetch(:nginx_config_path)}/sites-enabled/#{fetch(:application)}.conf"
 
       if fetch(:nginx_use_ssl)
         if nginx_upload_local_certificate
