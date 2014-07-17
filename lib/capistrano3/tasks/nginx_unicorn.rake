@@ -30,7 +30,7 @@ namespace :nginx do
       execute "sudo ln -fs #{fetch(:nginx_config_path)}/sites-available/#{fetch(:application)}.conf #{fetch(:nginx_config_path)}/sites-enabled/#{fetch(:application)}.conf"
 
       if fetch(:nginx_use_ssl)
-        if nginx_upload_local_certificate
+        if fetch(:nginx_upload_local_certificate)
           put File.read(nginx_ssl_certificate_local_path), "/tmp/#{fetch(:nginx_ssl_certificate)}"
           put File.read(nginx_ssl_certificate_key_local_path), "/tmp/#{fetch(:nginx_ssl_certificate_key)}"
 
@@ -106,4 +106,3 @@ def template(template_name, target)
   end
   upload! StringIO.new(ERB.new(File.read(config_file)).result(binding)), target
 end
-
