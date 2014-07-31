@@ -48,7 +48,7 @@ namespace :nginx do
   task :reload do
     on roles(:web) do
       execute "mkdir -p #{shared_path}/log"
-      execute "sudo /etc/init.d/nginx reload"
+      execute "sudo /etc/init.d/nginx restart"
     end
   end
 
