@@ -44,6 +44,13 @@ namespace :nginx do
     end
   end
 
+  desc "Only generate nginx configuration for this application"
+  task :generate_config do
+    on roles(:web) do
+      template("nginx_conf.erb", "/tmp/#{fetch(:application)}.conf")
+    end
+  end
+
   desc "Reload nginx configuration"
   task :reload do
     on roles(:web) do
