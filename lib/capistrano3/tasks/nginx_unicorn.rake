@@ -73,7 +73,7 @@ namespace :unicorn do
       template "unicorn.rb.erb", fetch(:unicorn_config)
       template "unicorn_init.erb", "/tmp/unicorn_init"
       execute "chmod +x /tmp/unicorn_init"
-      execute "sudo mv /tmp/unicorn_init #{fetch(:unicorn_script)}"
+      execute "mv /tmp/unicorn_init #{fetch(:unicorn_script)}"
     end
   end
 
